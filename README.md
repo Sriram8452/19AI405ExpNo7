@@ -1,10 +1,10 @@
 # ExpNo 8 : Solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
-# Name: Sriram G
-# Register Number : 212222230149
-# Aim:
+## Name: Sriram G
+## Register Number : 212222230149
+## Aim:
 To solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
 
-# Procedure:
+## Procedure:
 Input and Output
 Input: This algorithm will take three words.
 B A S E
@@ -95,7 +95,7 @@ return false
 
 End
 
-# PROGRAM :
+## PROGRAM :
 ```
 from itertools import permutations
 def solve_cryptarithmetic():
@@ -126,9 +126,11 @@ if solution:
 else:
     print("No solution found.")
 ```
-# Sample Input and Output:
+## Sample Input and Output:
 SEND = 9567
 MORE = 1085
+
+
 MONEY = 10652
-# Result:
+## Result:
 Thus, a Cryptarithmetic Problem was solved using Python successfully.
