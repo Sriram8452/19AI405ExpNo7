@@ -26,43 +26,78 @@ Input − A list of nodes, the number of elements in the node list and three wor
 Output − True if the sum of the value for word1 and word2 is same as word3 value.
 
 Begin
-m := 1
-for each letter i from right to left of word1, do
-ch := word1[i]
-for all elements j in the nodeList, do
-if nodeList[j].letter = ch, then
-break
-done
-val1 := val1 + (m * nodeList[j].value)
-m := m * 10
-done
-m := 1
-for each letter i from right to left of word2, do
-ch := word2[i]
-for all elements j in the nodeList, do
-if nodeList[j].letter = ch, then
-break
-done
-val2 := val2 + (m * nodeList[j].value)
-m := m * 10
-done
-m := 1
-for each letter i from right to left of word3, do
-ch := word3[i]
-for all elements j in the nodeList, do
-if nodeList[j].letter = ch, then
-break
-done
-val3 := val3 + (m * nodeList[j].value)
-m := m * 10
-done
-if val3 = (val1 + val2), then
-return true
-return false
-End
-# PROGRAM :
-from itertools import permutations
 
+m := 1
+
+for each letter i from right to left of word1, do
+
+ch := word1[i]
+
+for all elements j in the nodeList, do
+
+if nodeList[j].letter = ch, then
+
+break
+
+done
+
+val1 := val1 + (m * nodeList[j].value)
+
+m := m * 10
+
+done
+
+m := 1
+
+for each letter i from right to left of word2, do
+
+ch := word2[i]
+
+for all elements j in the nodeList, do
+
+if nodeList[j].letter = ch, then
+
+break
+
+done
+
+val2 := val2 + (m * nodeList[j].value)
+
+m := m * 10
+
+done
+
+m := 1
+
+for each letter i from right to left of word3, do
+
+ch := word3[i]
+
+for all elements j in the nodeList, do
+
+if nodeList[j].letter = ch, then
+
+break
+
+done
+
+val3 := val3 + (m * nodeList[j].value)
+
+m := m * 10
+
+done
+
+if val3 = (val1 + val2), then
+
+return true
+
+return false
+
+End
+
+# PROGRAM :
+```
+from itertools import permutations
 def solve_cryptarithmetic():
     for perm in permutations(range(10), 8):
         S, E, N, D, M, O, R, Y = perm
@@ -90,6 +125,7 @@ if solution:
     print(f'MONEY = {MONEY}')
 else:
     print("No solution found.")
+```
 # Sample Input and Output:
 SEND = 9567
 MORE = 1085
