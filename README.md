@@ -129,10 +129,10 @@ else:
     print("No solution found.")
 ```
 ## Sample Input and Output:
-SEND = 9567
-MORE = 1085
-
-
-MONEY = 10652
+SEND = 9567<br>
+MORE = 1085<br>
+<hr>
+MONEY = 10652<br>
+<hr>
 ## Result:
 Thus, a Cryptarithmetic Problem was solved using Python successfully.
