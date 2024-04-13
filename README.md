@@ -1,140 +1,221 @@
-# ExpNo 8 : Solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
-## Name: Sriram G
-## Register Number : 212222230149
-## Aim:
-To solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
+<h1>ExpNo 7 : Implement Alpha-beta pruning of Minimax Search Algorithm for a Simple TIC-TAC-TOE game</h1> 
+<h3>Name:Sriram G</h3>
+<h3>Register Number: 212222230149</h3>
+<H3>Aim:</H3>
+<p>
+Implement Alpha-beta pruning of Minimax Search Algorithm for a Simple TIC-TAC-TOE game
+</p>
 
-## Procedure:
+### GOALS of Alpha-Beta Pruning in MiniMax Search Algorithm</h1>
+Improve the decision-making efficiency of the computer player by reducing the number of evaluated nodes in the game tree.
+Tic-Tac-Toe game implementation incorporating the Alpha-Beta pruning and the Minimax algorithm with Python Code.
 
-Input and Output
-<br>Input:
-This algorithm will take three words.
-<br> B A S E<br>
-    B A L L<br>
-           ----------<br>
-           G A M E S<br>
-Output: It will show which letter holds which number from 0 – 9. For this case it is like this.
+### IMPLEMENTATION
+The project involves developing a Tic-Tac-Toe game implementation incorporating the Alpha-Beta pruning with the Minimax algorithm. Using this algorithm, the computer player analyzes the game state, evaluates possible moves, and selects the optimal action based on the anticipated outcomes.
 
-          B A S E                         2 4 6 1
-          B A L L                         2 4 5 5
-         ---------                       ---------
-        G A M E S                       0 4 9 1 6
-Algorithm For this problem, we will define a node, which contains a letter and its corresponding values.
+### The Minimax algorithm
+Recursively evaluates all possible moves and their potential outcomes, creating a game tree.
 
-isValid(nodeList, count, word1, word2, word3)
-
-Input − A list of nodes, the number of elements in the node list and three words.
-
-Output − True if the sum of the value for word1 and word2 is same as word3 value.
-
-Begin
-
-m := 1
-
-for each letter i from right to left of word1, do
-
-ch := word1[i]
-
-for all elements j in the nodeList, do
-
-if nodeList[j].letter = ch, then
-
-break
-
-done
-
-val1 := val1 + (m * nodeList[j].value)
-
-m := m * 10
-
-done
-
-m := 1
-
-for each letter i from right to left of word2, do
-
-ch := word2[i]
-
-for all elements j in the nodeList, do
-
-if nodeList[j].letter = ch, then
-
-break
-
-done
-
-val2 := val2 + (m * nodeList[j].value)
-
-m := m * 10
-
-done
-
-m := 1
-
-for each letter i from right to left of word3, do
-
-ch := word3[i]
-
-for all elements j in the nodeList, do
-
-if nodeList[j].letter = ch, then
-
-break
-
-done
-
-val3 := val3 + (m * nodeList[j].value)
-
-m := m * 10
-
-done
-
-if val3 = (val1 + val2), then
-
-return true
-
-return false
-
-End
-
-## PROGRAM :
-```
-from itertools import permutations
-def solve_cryptarithmetic():
-    for perm in permutations(range(10), 8):
-        S, E, N, D, M, O, R, Y = perm
-
-        # Check for leading zeros
-        if S == 0 or M == 0:
-            continue
-
-        # Check the equation constraints
-        SEND = 1000 * S + 100 * E + 10 * N + D
-        MORE = 1000 * M + 100 * O + 10 * R + E
-        MONEY = 10000 * M + 1000 * O + 100 * N + 10 * E + Y
-
-        if SEND + MORE == MONEY:
-            return SEND, MORE, MONEY
-
-    return None
-
-solution = solve_cryptarithmetic()
-
-if solution:
-    SEND, MORE, MONEY = solution
-    print(f'SEND = {SEND}')
-    print(f'MORE = {MORE}')
-    print(f'MONEY = {MONEY}')
-else:
-    print("No solution found.")
-```
-## Sample Input and Output:
-SEND = 9567<br>
-MORE = 1085<br>
-<hr>
-MONEY = 10652<br>
+### Alpha-Beta pruning
+Alpha–Beta (𝛼−𝛽) algorithm is actually an improved minimax using a heuristic. It stops evaluating a move when it makes sure that it’s worse than a previously examined move. Such moves need not to be evaluated further.
+When added to a simple minimax algorithm, it gives the same output but cuts off certain branches that can’t possibly affect the final decision — dramatically improving the performance
 <hr>
 
-## Result:
+## Program 
+```
 
-Thus, a Cryptarithmetic Problem was solved using Python successfully.
+import time
+
+class Game:
+    def __init__(self):
+        self.initialize_game()
+
+    def initialize_game(self):
+        self.current_state = [['.','.','.'],
+                              ['.','.','.'],
+                              ['.','.','.']]
+
+        # Player X always plays first
+        self.player_turn = 'X'
+
+    def draw_board(self):
+        for i in range(0, 3):
+            for j in range(0, 3):
+                print('{}|'.format(self.current_state[i][j]), end=" ")
+            print()
+        print()
+    def is_valid(self, px, py):
+        if px < 0 or px > 2 or py < 0 or py > 2:
+            return False
+        elif self.current_state[px][py] != '.':
+            return False
+        else:
+            return True
+    def is_end(self):
+    # Vertical win
+        for i in range(0, 3):
+            if (self.current_state[0][i] != '.' and
+                self.current_state[0][i] == self.current_state[1][i] and
+                self.current_state[1][i] == self.current_state[2][i]):
+                return self.current_state[0][i]
+
+        # Horizontal win
+        for i in range(0, 3):
+            if (self.current_state[i] == ['X', 'X', 'X']):
+                return 'X'
+            elif (self.current_state[i] == ['O', 'O', 'O']):
+                return 'O'
+
+    # Main diagonal win
+        if (self.current_state[0][0] != '.' and
+            self.current_state[0][0] == self.current_state[1][1] and
+            self.current_state[0][0] == self.current_state[2][2]):
+            return self.current_state[0][0]
+
+    # Second diagonal win
+        if (self.current_state[0][2] != '.' and
+            self.current_state[0][2] == self.current_state[1][1] and
+            self.current_state[0][2] == self.current_state[2][0]):
+            return self.current_state[0][2]
+
+    # Is the whole board full?
+        for i in range(0, 3):
+            for j in range(0, 3):
+            # There's an empty field, we continue the game
+                if (self.current_state[i][j] == '.'):
+                    return None
+
+    # It's a tie!
+        return '.'
+    def max_alpha_beta(self, alpha, beta):
+        maxv = -2
+        px = None
+        py = None
+
+        result = self.is_end()
+
+        if result == 'X':
+            return (-1, 0, 0)
+        elif result == 'O':
+            return (1, 0, 0)
+        elif result == '.':
+            return (0, 0, 0)
+
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self.current_state[i][j] == '.':
+                    self.current_state[i][j] = 'O'
+                    (m, min_i, in_j) = self.min_alpha_beta(alpha, beta)
+                    if m > maxv:
+                        maxv = m
+                        px = i
+                        py = j
+                    self.current_state[i][j] = '.'
+
+                    # Next two ifs in Max and Min are the only difference between regular algorithm and minimax
+                    if maxv >= beta:
+                        return (maxv, px, py)
+
+                    if maxv > alpha:
+                        alpha = maxv
+
+        return (maxv, px, py)
+
+    def min_alpha_beta(self, alpha, beta):
+
+        minv = 2
+
+        qx = None
+        qy = None
+
+        result = self.is_end()
+
+        if result == 'X':
+            return (-1, 0, 0)
+        elif result == 'O':
+            return (1, 0, 0)
+        elif result == '.':
+            return (0, 0, 0)
+
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self.current_state[i][j] == '.':
+                    self.current_state[i][j] = 'X'
+                    (m, max_i, max_j) = self.max_alpha_beta(alpha, beta)
+                    if m < minv:
+                        minv = m
+                        qx = i
+                        qy = j
+                    self.current_state[i][j] = '.'
+
+                    if minv <= alpha:
+                        return (minv, qx, qy)
+
+                    if minv < beta:
+                        beta = minv
+
+        return (minv, qx, qy)
+    def play_alpha_beta(self):
+        while True:
+            self.draw_board()
+            self.result = self.is_end()
+
+            if self.result != None:
+                if self.result == 'X':
+                    print('The winner is X!')
+                elif self.result == 'O':
+                    print('The winner is O!')
+                elif self.result == '.':
+                    print("It's a tie!")
+
+
+                self.initialize_game()
+                return
+
+            if self.player_turn == 'X':
+
+                while True:
+                    start = time.time()
+                    (m, qx, qy) = self.min_alpha_beta(-2, 2)
+                    end = time.time()
+                    print('Evaluation time: {}s'.format(round(end - start, 7)))
+                    print('Recommended move: X = {}, Y = {}'.format(qx, qy))
+
+                    px = int(input('Insert the X coordinate: '))
+                    py = int(input('Insert the Y coordinate: '))
+
+                    qx = px
+                    qy = py
+
+                    if self.is_valid(px, py):
+                        self.current_state[px][py] = 'X'
+                        self.player_turn = 'O'
+                        break
+                    else:
+                        print('The move is not valid! Try again.')
+
+            else:
+                (m, px, py) = self.max_alpha_beta(-2, 2)
+                self.current_state[px][py] = 'O'
+                self.player_turn = 'X'
+    
+     
+    
+def main():
+    g = Game()
+    g.play_alpha_beta()
+
+if __name__ == "__main__":
+    main()
+```
+
+<h2>Sample Input and Output:</h2>
+
+![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/8d5e329a-9aff-41a6-bcf0-46efa10e1b92)
+![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/438b242d-54ba-443e-b040-a936e6ae3b55)
+![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/99a33390-fa11-4ade-a19f-e93bcd7aaec9)
+![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/440797bd-53cb-49c1-b18d-89776864c3e7)
+![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/81575a16-26b2-46f1-a8ac-27c9ed0a0fe5)
+
+## Result
+Thus,Implementation of Alpha-beta pruning of Minimax Search Algorithm for a Simple TIC-TAC-TOE game was a done successfully.
