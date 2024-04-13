@@ -134,5 +134,7 @@ MORE = 1085<br>
 <hr>
 MONEY = 10652<br>
 <hr>
+
 ## Result:
+
 Thus, a Cryptarithmetic Problem was solved using Python successfully.
