@@ -36,7 +36,6 @@ done
 val1 := val1 + (m * nodeList[j].value)
 m := m * 10
 done
-
 m := 1
 for each letter i from right to left of word2, do
 ch := word2[i]
@@ -44,11 +43,9 @@ for all elements j in the nodeList, do
 if nodeList[j].letter = ch, then
 break
 done
-
-  val2 := val2 + (m * nodeList[j].value)
-  m := m * 10
+val2 := val2 + (m * nodeList[j].value)
+m := m * 10
 done
-
 m := 1
 for each letter i from right to left of word3, do
 ch := word3[i]
@@ -56,16 +53,13 @@ for all elements j in the nodeList, do
 if nodeList[j].letter = ch, then
 break
 done
-
-  val3 := val3 + (m * nodeList[j].value)
-  m := m * 10
+val3 := val3 + (m * nodeList[j].value)
+m := m * 10
 done
-
 if val3 = (val1 + val2), then
 return true
 return false
 End
-
 # PROGRAM :
 from itertools import permutations
 
