@@ -5,12 +5,14 @@
 To solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
 
 ## Procedure:
+
 Input and Output
-Input: This algorithm will take three words.
-B A S E
-B A L L
-----------
-G A M E S
+<br>Input:
+This algorithm will take three words.
+<br> B A S E<br>
+    B A L L<br>
+           ----------<br>
+           G A M E S<br>
 Output: It will show which letter holds which number from 0 – 9. For this case it is like this.
 
           B A S E                         2 4 6 1
